@@ -1,0 +1,26 @@
+# Runs 2 copies (pods) of our container.
+# {{ image }} is filled in by Ansible with the new image name.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-app
+  template:
+    metadata:
+      labels:
+        app: hello-app
+    spec:
+      containers:
+        - name: hello-app
+          image: {{ image }}
+          ports:
+            - containerPort: 8080
+          # Only send traffic to a pod once the page loads
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080

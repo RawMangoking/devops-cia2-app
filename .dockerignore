@@ -1,0 +1,4 @@
+# Ignore everything...
+*
+# ...except the JAR, which is the only file the image needs
+!target/app.jar

@@ -1,0 +1,18 @@
+# Deploys the app to Kubernetes.
+# Usage: ansible-playbook -i ansible/inventory.ini ansible/deploy.yml -e image=<image name>
+- name: Deploy hello-app to Kubernetes
+  hosts: local
+  gather_facts: false
+
+  tasks:
+    - name: Put the new image name into the deployment file
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/../k8s/deployment.yaml"
+        dest: /tmp/deployment.yaml
+
+    - name: Apply the deployment and service to Kubernetes
+      ansible.builtin.command: >
+        kubectl apply -f /tmp/deployment.yaml -f {{ playbook_dir }}/../k8s/service.yaml
+
+    - name: Wait until the new pods are running
+      ansible.builtin.command: kubectl rollout status deployment/hello-app --timeout=180s
