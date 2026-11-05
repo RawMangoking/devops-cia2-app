@@ -19,6 +19,9 @@ spec:
           image: {{ image }}
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: hello-config
           # Only send traffic to a pod once the page loads
           readinessProbe:
             httpGet:
