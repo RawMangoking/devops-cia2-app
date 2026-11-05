@@ -4,4 +4,4 @@ kind: ConfigMap
 metadata:
   name: hello-config
 data:
-  APP_NAME: "Narenkarthik"
+  APP_NAME: "Narenkarthik-v2 test"
