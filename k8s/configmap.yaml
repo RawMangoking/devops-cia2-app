@@ -1,0 +1,7 @@
+# Non-sensitive settings for hello-app
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-config
+data:
+  APP_NAME: "Narenkarthik"
